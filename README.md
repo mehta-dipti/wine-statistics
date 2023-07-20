@@ -8,6 +8,10 @@
 
 In the project directory, you can run:
 
+### `yarn install`
+
+Installs the required packages to run/build the app.
+
 ### `yarn start`
 
 Runs the app in the development mode.\
