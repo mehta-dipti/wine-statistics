@@ -1,21 +1,24 @@
-
-body{
-    background-color: rgb(248, 248, 248);
+body {
+  background-color: rgb(248, 248, 248);
 }
 
-td, th {
-    border: 2px solid #3b3b3b;
-    padding: 0.5rem;
-    text-align: center;
+td,
+th {
+  border: 2px solid #3b3b3b;
+  padding: 0.5rem;
+  text-align: center;
+  word-wrap: break-word;
 }
- 
+
 table {
-    border-collapse: collapse;
+  border-collapse: collapse;
+  table-layout: fixed;
+  margin: 20px auto;
 }
- 
+
 tbody tr:nth-child(odd) {
-    background: #eee;
+  background: #eee;
 }
 caption {
-    font-size: 0.8rem;
+  font-size: 0.8rem;
 }

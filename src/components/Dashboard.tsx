@@ -1,30 +1,28 @@
 import { useEffect, useState } from "react";
-import { WineTable } from "./WineTable";
 import wineData from "../data/wineData.json";
-import { getUniqueClasses, generateClassArrays } from "../utils/utils";
-import { IAlcoholDetails } from "../types/types";
-import { calMean, calMedian } from "../utils/calculationsUtils";
+import { getUniqueClasses, generateClassArrays, generateGamma } from "../utils/utils";
+import { IAlcoholDetails } from "../types/interfaces";
+import { StatisticsTable } from "./StatisticsTable";
 
 export const Dashboard = () => {
   const [uniqueClasses, setUniqueClasses] = useState<number[]>([]);
-  const [wineGroup, setWineGroup] = useState<IAlcoholDetails[][]>([]);
+  const [wineDataWithGamma, setWineDataWithGamma] = useState<IAlcoholDetails[]>([]);
+  const [distributedWineClasses, setDistributedWineClasses] = useState<IAlcoholDetails[][]>([]);
 
   useEffect(() => {
-    setUniqueClasses(getUniqueClasses(wineData));
+    const dataWithGama = generateGamma(wineData);
+    setWineDataWithGamma(dataWithGama);
+    setUniqueClasses(getUniqueClasses(dataWithGama));
   }, []);
 
   useEffect(() => {
-    const wines = generateClassArrays(wineData, uniqueClasses);
-    setWineGroup(wines);
-    console.log("mean", calMean(wines));
-    console.log("median", calMedian(wines));
-
-    console.log(generateClassArrays(wineData, uniqueClasses));
-  }, [uniqueClasses, wineData]);
+    setDistributedWineClasses(generateClassArrays(wineDataWithGamma, uniqueClasses));
+  }, [uniqueClasses, wineDataWithGamma]);
 
   return (
     <>
-      <WineTable uniqueClasses={uniqueClasses} wineData={wineData} />
+      <StatisticsTable uniqueClasses={uniqueClasses} distributedWineClasses={distributedWineClasses} property="Flavanoids" />
+      <StatisticsTable uniqueClasses={uniqueClasses} distributedWineClasses={distributedWineClasses} property="Gamma" />
     </>
   );
 };
